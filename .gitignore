@@ -1,0 +1,25 @@
+# Frontend
+node_modules/
+dist/
+coverage/
+*.log
+
+# Backend
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.db
+*.sqlite3
+backend/data/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
