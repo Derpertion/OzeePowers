@@ -62,13 +62,13 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-slate-200">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-              Brochure Product Catalog
+              Verified Brochure Catalog
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight mt-1">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0B2D5C] tracking-tight mt-1">
               Complete Solar & Energy Solutions
             </h2>
             <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl">
-              From high-efficiency Tier-1 solar modules and smart hybrid inverters to LiFePO4 battery banks
+              From high-efficiency solar modules and smart hybrid inverters to LiFePO4 battery banks
               and code-compliant electrical protection.
             </p>
           </div>
@@ -138,58 +138,72 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({
           {filteredSolutions.map((solution) => (
             <div
               key={solution.id}
-              className="group flex flex-col justify-between rounded-xl bg-slate-50 border border-slate-200/90 hover:border-emerald-300 hover:shadow-md transition-all duration-200 p-5"
+              className="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-300 overflow-hidden"
             >
               <div>
-                {/* Card Header */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-2xs group-hover:bg-emerald-50 transition-colors">
-                    {getProductIcon(solution.id)}
-                  </div>
+                {/* Product Image Header with Badges */}
+                <div className="relative w-full h-44 sm:h-48 overflow-hidden bg-slate-100 border-b border-slate-200">
+                  <img
+                    src={solution.image}
+                    alt={solution.imageAlt || solution.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-black/20 pointer-events-none" />
+
+                  {/* Top Floating Badge */}
                   {solution.badge && (
-                    <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-md">
+                    <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider text-emerald-950 bg-emerald-300/95 backdrop-blur-sm px-2.5 py-1 rounded-md shadow-xs">
                       {solution.badge}
                     </span>
                   )}
+
+                  {/* Icon and Subtitle Pill */}
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                    <div className="flex items-center gap-1.5 bg-slate-900/80 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-medium border border-white/20">
+                      {getProductIcon(solution.id)}
+                      <span className="line-clamp-1">{solution.subtitle}</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-0.5">
-                  {solution.subtitle}
+                {/* Card Body */}
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#0B2D5C] transition-colors leading-snug">
+                    {solution.title}
+                  </h3>
+
+                  <p className="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
+                    {solution.description}
+                  </p>
+
+                  {/* Micro specs list */}
+                  <ul className="mt-4 space-y-1.5 border-t border-slate-100 pt-3">
+                    {solution.features.slice(0, 2).map((feat, idx) => (
+                      <li key={idx} className="flex items-start gap-1.5 text-xs text-slate-700">
+                        <span className="text-emerald-600 font-bold">✓</span>
+                        <span className="line-clamp-1">{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-navy transition-colors leading-snug">
-                  {solution.title}
-                </h3>
-
-                <p className="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
-                  {solution.description}
-                </p>
-
-                {/* Micro specs list */}
-                <ul className="mt-4 space-y-1.5 border-t border-slate-200/70 pt-3">
-                  {solution.features.slice(0, 2).map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-1.5 text-xs text-slate-700">
-                      <span className="text-emerald-600 font-bold">✓</span>
-                      <span className="line-clamp-1">{feat}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-5 pt-3 border-t border-slate-200/70 flex items-center justify-between gap-2">
+              <div className="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60">
                 <button
                   type="button"
                   onClick={() => onSelectProduct(solution)}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-brand-navy hover:text-emerald-700 transition-colors py-1"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0B2D5C] hover:text-emerald-700 transition-colors py-1"
                 >
                   <Info className="w-3.5 h-3.5" />
-                  <span>Specs</span>
+                  <span>View Details</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => onOpenConsultation(solution.title)}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 active:bg-emerald-200 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 active:bg-emerald-200 rounded-lg transition-colors border border-emerald-200/60"
                 >
                   <span>Quote</span>
                   <ArrowRight className="w-3 h-3" />

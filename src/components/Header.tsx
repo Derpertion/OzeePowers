@@ -17,36 +17,20 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Bar Contract: Zone 1 (Brand) — Zone 2 (Nav Links) — Zone 3 (Primary Action) */}
         <div className="flex items-center justify-between gap-8 h-20">
-          {/* Zone 1: Brand Wordmark */}
+          {/* Zone 1: Brand Wordmark using official OzeePower logo */}
           <a
-            href="#top"
-            className="flex items-center gap-2.5 whitespace-nowrap shrink-0 group focus-visible:outline-emerald-600 rounded-md py-1"
+            href="#"
+            className="flex items-center gap-2 whitespace-nowrap shrink-0 group focus-visible:outline-emerald-600 rounded-md py-1"
           >
-            <div className="relative w-9 h-9 rounded-lg bg-brand-navy flex items-center justify-center text-white shadow-xs overflow-hidden">
-              {/* Custom clean SVG logo resembling brochure sun & leaf mark */}
-              <svg viewBox="0 0 36 36" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="18" cy="18" r="6" fill="#F59E0B" />
-                <path
-                  d="M18 4V8M18 28V32M4 18H8M28 18H32M8.1 8.1L10.9 10.9M25.1 25.1L27.9 27.9M8.1 27.9L10.9 25.1M25.1 10.9L27.9 8.1"
-                  stroke="#FBBF24"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M17 19C17 13 24 12 24 12C24 12 25 19 19 21C18 21.3 17 20 17 19Z"
-                  fill="#22C55E"
-                />
-              </svg>
-            </div>
-            <div className="flex items-baseline">
-              <span className="text-xl font-extrabold tracking-tight text-brand-navy">
-                Ozee<span className="text-emerald-600">Power</span>
-              </span>
-            </div>
+            <img
+              src={COMPANY_INFO.logoAssetPath}
+              alt="OzeePower Logo"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+            />
           </a>
 
           {/* Zone 2: Navigation Links (single line, clean text with hover underline) */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700">
+          <nav className="hidden xl:flex items-center gap-8 text-sm font-semibold text-slate-700">
             <a
               href="#solutions"
               className="hover:text-emerald-700 transition-colors whitespace-nowrap shrink-0 py-1"
@@ -64,6 +48,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
               className="hover:text-emerald-700 transition-colors whitespace-nowrap shrink-0 py-1"
             >
               Sectors
+            </a>
+            <a
+              href="#gallery"
+              className="hover:text-emerald-700 transition-colors whitespace-nowrap shrink-0 py-1"
+            >
+              Gallery
             </a>
             <a
               href="#why-us"
@@ -90,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
             <button
               type="button"
               onClick={onOpenBrochure}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-brand-navy hover:bg-slate-100 rounded-lg transition-colors whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-[#0B2D5C] hover:bg-slate-100 rounded-lg transition-colors whitespace-nowrap shrink-0"
               title="Inspect original company brochure"
             >
               <FileText className="w-4 h-4 text-emerald-600" />
@@ -108,7 +98,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
           </div>
 
           {/* Mobile hamburger menu toggle */}
-          <div className="flex sm:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -123,7 +113,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3 shadow-lg animate-fade-in">
+        <div className="xl:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3 shadow-lg animate-fade-in">
           <nav className="flex flex-col space-y-2 text-base font-semibold text-slate-800">
             <a
               href="#solutions"
@@ -145,6 +135,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
               className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
             >
               Homes, Businesses, Industries
+            </a>
+            <a
+              href="#gallery"
+              onClick={closeMobileMenu}
+              className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              Equipment & Project Gallery
             </a>
             <a
               href="#why-us"

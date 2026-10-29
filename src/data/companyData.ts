@@ -3,6 +3,7 @@ import { ContactPerson, CustomerSector, ProcessStage, ProductSolution, TrustedBr
 export const COMPANY_INFO = {
   name: 'OzeePower',
   fullName: 'OzeePower Solar & Energy Solutions',
+  logoAssetPath: '/assets/aistudio/OzeePower_logo.png',
   tagline: 'Powering a Brighter and Sustainable Future.',
   subTagline:
     'OzeePower is a trusted provider of solar power and energy solutions for residential, commercial, and industrial applications.',
@@ -61,7 +62,7 @@ export const CORE_PILLARS = [
   },
   {
     title: 'Reliable Power',
-    description: 'Guaranteed uninterrupted power supply during grid outages with automatic failover.',
+    description: 'Reliable backup power during grid outages with automatic failover.',
     highlight: '24/7 Energy Security',
   },
   {
@@ -77,7 +78,9 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     title: 'Solar Panels',
     subtitle: 'Supply & Installation',
     category: 'generation',
-    badge: 'Tier 1 Solar Panels',
+    badge: 'High-Efficiency Solar Panels',
+    image: '/assets/aistudio/Tier1_panels.jpg',
+    imageAlt: 'High-efficiency solar photovoltaic panels installed on a rooftop mounting system',
     description:
       'High-efficiency monocrystalline PV modules engineered for maximum tropical sunlight conversion, superior low-light generation, and extreme weather durability.',
     features: [
@@ -93,7 +96,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Wind / Snow Load', value: '2400 Pa / 5400 Pa certified' },
     ],
     recommendedBrands: ['LONGI', 'JA Solar', 'CanadianSolar', 'TrinaSolar'],
-    imageAlt: 'Tier 1 high-efficiency solar photovoltaic panels installed on rooftop',
   },
   {
     id: 'inverters',
@@ -101,6 +103,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'Supply, On-Grid / Hybrid Inverters',
     category: 'inverter-storage',
     badge: 'High Conversion Efficiency',
+    image: '/assets/aistudio/Inverters.jpg',
+    imageAlt: 'Modern wall-mounted solar inverter with LCD display and cloud connectivity',
     description:
       'State-of-the-art on-grid and hybrid inverters transforming direct solar energy into pure sine-wave AC power with dual/multi-MPPT tracking and remote cloud monitoring.',
     features: [
@@ -116,7 +120,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Phases', value: 'Single Phase (220V/230V) & 3-Phase (400V)' },
     ],
     recommendedBrands: ['Growatt', 'Deye', 'Schneider Electric'],
-    imageAlt: 'Modern wall-mounted solar inverter with LCD display and cloud connectivity',
   },
   {
     id: 'hybrid-systems',
@@ -124,6 +127,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'Grid-Tie & Battery Backup',
     category: 'inverter-storage',
     badge: 'Uninterrupted Resilience',
+    image: '/assets/aistudio/Hybrid_solar_system.jpg',
+    imageAlt: 'Complete hybrid solar system with inverter, battery pack, and ATS controller',
     description:
       'The optimal balance of grid-tied savings and off-grid security. Automatically stores excess daytime solar energy in batteries to power evening loads and protect against brownouts.',
     features: [
@@ -139,7 +144,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Operating Modes', value: 'Self-Consumption, Peak-Shaving, Backup' },
     ],
     recommendedBrands: ['Deye', 'Growatt', 'Pylontech'],
-    imageAlt: 'Complete hybrid solar system with inverter, battery pack, and ATS controller',
   },
   {
     id: 'battery-storage',
@@ -147,6 +151,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'LiFePO4 Lithium Iron Phosphate Storage',
     category: 'inverter-storage',
     badge: 'LiFePO4 Chemistry',
+    image: '/assets/aistudio/Battery_energy_storage_system.jpg',
+    imageAlt: 'Modular LiFePO4 battery rack storage units for residential and commercial backup',
     description:
       'Safe, durable, high-density Lithium Iron Phosphate (LiFePO4) rack-mount and cabinet battery banks with built-in intelligent Battery Management Systems (BMS).',
     features: [
@@ -162,7 +168,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Depth of Discharge', value: 'Up to 90%' },
     ],
     recommendedBrands: ['Pylontech', 'Deye', 'Custom BESS Cabinets'],
-    imageAlt: 'Modular LiFePO4 battery rack storage units for residential and commercial backup',
   },
   {
     id: 'ats-switches',
@@ -170,6 +175,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'Seamless Changeover Installation',
     category: 'protection-safety',
     badge: 'Zero-Downtime Transfer',
+    image: '/assets/aistudio/Automatic_transfer_switch.jpg',
+    imageAlt: 'Automatic Transfer Switch panel with control display and indicator lights',
     description:
       'Heavy-duty ATS installation providing instant, safe switching between utility grid, solar/battery inverter, and backup generator without manual breaker intervention.',
     features: [
@@ -185,7 +192,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Enclosure', value: 'Powder-coated IP55/IP65 steel enclosure' },
     ],
     recommendedBrands: ['Schneider Electric', 'ABB', 'Eaton'],
-    imageAlt: 'Automatic Transfer Switch panel with control display and indicator lights',
   },
   {
     id: 'surge-protection',
@@ -193,6 +199,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'Surge & Lightning Protection',
     category: 'protection-safety',
     badge: 'Appliance & Inverter Shield',
+    image: '/assets/aistudio/Surge_protection_device.jpg',
+    imageAlt: 'Surge protection devices and lightning arrestors mounted on DIN rail',
     description:
       'Dedicated Class I and Class II DC and AC surge arrestors designed to clamp high-voltage spikes caused by nearby lightning strikes and utility switching surges.',
     features: [
@@ -208,7 +216,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Response Time', value: '< 25 nanoseconds' },
     ],
     recommendedBrands: ['Schneider Electric', 'ABB', 'Siemens'],
-    imageAlt: 'Surge protection devices and lightning arrestors mounted on DIN rail',
   },
   {
     id: 'electrical-protection',
@@ -216,6 +223,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'MCB, MCCB, RCD, Isolators, Contactors',
     category: 'protection-safety',
     badge: 'Code-Compliant Safety',
+    image: '/assets/aistudio/Electrical_protection.jpg',
+    imageAlt: 'DIN-rail mounted circuit protection, DC breakers, and contactors in combiner box',
     description:
       'Comprehensive safety switchgear including DC isolator switches, Miniature Circuit Breakers (MCB), Molded Case Breakers (MCCB), and Residual Current Devices (RCD).',
     features: [
@@ -231,7 +240,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Enclosure Rating', value: 'IP65 Weatherproof with clear inspection door' },
     ],
     recommendedBrands: ['Schneider Electric', 'ABB', 'Eaton', 'Siemens'],
-    imageAlt: 'DIN-rail mounted circuit protection, DC breakers, and contactors in combiner box',
   },
   {
     id: 'cables-conduits',
@@ -239,6 +247,8 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
     subtitle: 'High-Quality Infrastructure',
     category: 'accessories',
     badge: 'Tropical Weatherproof',
+    image: '/assets/aistudio/Cables_conduits_accessories.jpg',
+    imageAlt: 'Double-insulated solar PV cables, conduits, and MC4 connectors for installations',
     description:
       'TÜV-certified cross-linked polyolefin (XLPO) solar cables, weatherproof EMT/RSC metal pipes, UV-resistant PVC conduits, MC4 connectors, and stainless steel hardware.',
     features: [
@@ -254,7 +264,6 @@ export const PRODUCT_SOLUTIONS: ProductSolution[] = [
       { label: 'Conduit Types', value: 'Intermediate Metal Conduit (IMC) & Rigid PVC' },
     ],
     recommendedBrands: ['Certified Solar Hardware & TÜV-tested cabling'],
-    imageAlt: 'Double-insulated solar PV cables, conduits, and MC4 connectors for installations',
   },
 ];
 
@@ -288,14 +297,14 @@ export const PROCESS_STAGES: ProcessStage[] = [
   {
     step: 3,
     title: 'Supply of Quality Equipment',
-    headline: 'Direct Procurement of Tier-1 Equipment',
+    headline: 'Direct Procurement of Quality Equipment',
     description: 'We provide quality and trusted brands of solar products and accessories.',
     deliverables: [
-      'Procurement of certified Tier-1 panels, inverters, and LiFePO4 batteries',
+      'Procurement of solar panels, inverters, and LiFePO4 batteries',
       'Incoming quality inspection of mounting hardware and switchgear',
       'Safe on-site staging and secure transport to your property',
     ],
-    keyTools: ['Tier-1 manufacturer warranty cards', 'Batch inspection reports', 'Quality verification checks'],
+    keyTools: ['Manufacturer warranty cards', 'Batch inspection reports', 'Quality verification checks'],
     duration: 'Day 5–7',
   },
   {
@@ -327,7 +336,7 @@ export const PROCESS_STAGES: ProcessStage[] = [
   {
     step: 6,
     title: 'Project Handover & After-Sales Support',
-    headline: 'Comprehensive Orientation & Lifetime Care',
+    headline: 'Comprehensive Orientation & After-Sales Support',
     description: 'We provide system orientation, warranty support, and continuous after-sales service.',
     deliverables: [
       'Client mobile app installation for live solar generation tracking',
@@ -344,10 +353,11 @@ export const CUSTOMER_SECTORS: CustomerSector[] = [
     id: 'residential',
     title: 'Residential Homes',
     tagline: 'Take control of your household utility bills and enjoy peaceful backup power.',
+    image: '/assets/aistudio/Solar_panels3.jpg',
     description:
       'Tailored rooftop solar installations designed for Filipino families seeking financial freedom from rising electric rates and immunity against local brownouts.',
     bullets: [
-      'Lower electricity bills by up to 70% – 90%',
+      'Designed to reduce reliance on grid electricity and lower monthly bills',
       'Reliable backup power during grid blackouts and storms',
       'Increase property valuation and home market appeal',
     ],
@@ -358,6 +368,7 @@ export const CUSTOMER_SECTORS: CustomerSector[] = [
     id: 'commercial',
     title: 'Commercial Businesses',
     tagline: 'Slash operating expenses during daylight peak business hours.',
+    image: '/assets/aistudio/Solar_panel2.jpg',
     description:
       'Engineered solar solutions for commercial establishments that consume significant air-conditioning and refrigeration power during the day.',
     bullets: [
@@ -372,12 +383,13 @@ export const CUSTOMER_SECTORS: CustomerSector[] = [
     id: 'industrial',
     title: 'Industrial Facilities',
     tagline: 'Heavy-duty multi-megawatt-hour energy independence for manufacturing.',
+    image: '/assets/aistudio/Solar_panels1.jpg',
     description:
       'High-capacity solar arrays with tailored power factor control, transformer integration, and peak demand shaving for energy-intensive industrial enterprises.',
     bullets: [
-      'High energy savings generating millions in bottom-line cost reduction',
+      'Energy savings that can improve long-term operating costs',
       'Stable, high-quality power safeguarding continuous production lines',
-      'Long-term capital investment with strong ROI and fast payback periods',
+      'Long-term capital investment with returns that depend on site conditions and usage',
     ],
     typicalCapacity: '100 kWp to 1 MWp+',
     idealFor: 'Warehouses, factories, rice mills, feed mills, food processing plants',
@@ -387,8 +399,8 @@ export const CUSTOMER_SECTORS: CustomerSector[] = [
 export const WHY_CHOOSE_US = [
   {
     title: 'Reliable & Trusted Brands',
-    description: 'We use proven, high-quality products from top tier global manufacturers.',
-    detail: 'No grey-market or unverified clones. We only install Tier-1 PV modules and certified inverters with official warranties.',
+    description: 'We use proven, high-quality products from established global manufacturers.',
+    detail: 'We source equipment from established manufacturers and verify warranty documentation before installation.',
   },
   {
     title: 'Safety & Quality First',
@@ -403,7 +415,7 @@ export const WHY_CHOOSE_US = [
   {
     title: 'After-Sales Support',
     description: 'We are with you even after project completion.',
-    detail: 'Prompt local service in Cabanatuan City and nearby provinces, rapid response times, and lifetime technical guidance.',
+    detail: 'Prompt local service in Cabanatuan City and nearby provinces, rapid response times, and ongoing technical guidance.',
   },
   {
     title: 'Customized Solutions',
@@ -418,10 +430,10 @@ export const WHY_CHOOSE_US = [
 ];
 
 export const TRUSTED_BRANDS: TrustedBrand[] = [
-  { name: 'LONGI', category: 'Panels', origin: 'Global Leader', tagline: 'Tier 1 Hi-MO Monocrystalline Modules' },
-  { name: 'JA SOLAR', category: 'Panels', origin: 'Tier 1 Global', tagline: 'High-Efficiency Deep Blue PV Technology' },
-  { name: 'CanadianSolar', category: 'Panels', origin: 'Tier 1 Global', tagline: 'Bifacial & High-Yield Solar Modules' },
-  { name: 'TrinaSolar', category: 'Panels', origin: 'Tier 1 Global', tagline: 'Vertex High-Power Generation Panels' },
+  { name: 'LONGI', category: 'Panels', origin: 'Global Manufacturer', tagline: 'Hi-MO Monocrystalline Modules' },
+  { name: 'JA SOLAR', category: 'Panels', origin: 'Global Manufacturer', tagline: 'High-Efficiency Deep Blue PV Technology' },
+  { name: 'CanadianSolar', category: 'Panels', origin: 'Global Manufacturer', tagline: 'Bifacial & High-Yield Solar Modules' },
+  { name: 'TrinaSolar', category: 'Panels', origin: 'Global Manufacturer', tagline: 'Vertex High-Power Generation Panels' },
   { name: 'Growatt', category: 'Inverters', origin: 'Smart Energy', tagline: 'On-Grid, Hybrid & Commercial Inverters' },
   { name: 'Deye', category: 'Inverters', origin: 'Hybrid Tech', tagline: 'Low & High Voltage Hybrid Inverters' },
   { name: 'Pylontech', category: 'Batteries', origin: 'Energy Storage', tagline: 'LiFePO4 Modular Rack Batteries' },
@@ -429,4 +441,100 @@ export const TRUSTED_BRANDS: TrustedBrand[] = [
   { name: 'ABB', category: 'Protection & Switchgear', origin: 'Electrification', tagline: 'Industrial Switchgear & Safety Devices' },
   { name: 'EATON', category: 'Protection & Switchgear', origin: 'Power Management', tagline: 'Heavy-Duty Circuit Protection' },
   { name: 'Siemens', category: 'Protection & Switchgear', origin: 'German Engineering', tagline: 'Precision Electrical Protection & Relays' },
+  { name: 'TTNergy', category: 'Inverters', origin: 'Global Manufacturer', tagline: 'Choose TTNergy, Choose Green Life' },
+];
+
+export interface ShowcaseImage {
+  id: string;
+  title: string;
+  category: 'Equipment' | 'Installation' | 'Storage' | 'Commercial';
+  image: string;
+  description: string;
+}
+
+export const SHOWCASE_IMAGES: ShowcaseImage[] = [
+  {
+    id: 'hybrid-cabinet',
+    title: 'Integrated Hybrid System & Battery Rack',
+    category: 'Storage',
+    image: '/assets/aistudio/Hybrid_solar_system.jpg',
+    description: 'Hybrid inverter with modular LiFePO4 battery modules in a ventilated enclosure.',
+  },
+  {
+    id: 'wall-inverter-bess',
+    title: 'Complete Wall-Mounted Solar & Storage Setup',
+    category: 'Installation',
+    image: '/assets/aistudio/Complete_inverter.jpg',
+    description: 'Clean turnkey installation featuring a smart inverter, battery module, and combiner enclosure.',
+  },
+  {
+    id: 'tier1-solar-panel',
+    title: 'High-Efficiency Monocrystalline Solar Panels',
+    category: 'Equipment',
+    image: '/assets/aistudio/Tier1_panels.jpg',
+    description: 'Monocrystalline solar panel with heavy-duty mounting rails, junction box, and MC4 connectors.',
+  },
+  {
+    id: 'bess-rack-storage',
+    title: 'LiFePO4 Battery Energy Storage Systems (BESS)',
+    category: 'Storage',
+    image: '/assets/aistudio/Battery_energy_storage_system.jpg',
+    description: 'High-density scalable lithium iron phosphate battery banks engineered for critical load continuity.',
+  },
+  {
+    id: 'ats-panel',
+    title: 'Automatic Transfer Switch (ATS) System',
+    category: 'Equipment',
+    image: '/assets/aistudio/Automatic_transfer_switch.jpg',
+    description: 'Automatic transfer switch installation with source indicator status lights and copper busbar wiring.',
+  },
+  {
+    id: 'protection-panel',
+    title: 'Complete Electrical Protection Distribution Panel',
+    category: 'Equipment',
+    image: '/assets/aistudio/Electrical_protection.jpg',
+    description: 'Comprehensive MCB, MCCB, RCD, lockable isolator, and industrial contactors in IP65 enclosure.',
+  },
+  {
+    id: 'surge-protection-spd',
+    title: 'Surge Protection Devices & Lightning Arrestors',
+    category: 'Equipment',
+    image: '/assets/aistudio/Surge_protection_device.jpg',
+    description: 'DIN-rail mounted Type 2 AC & DC surge arrestors with visual status flags and master earth terminal.',
+  },
+  {
+    id: 'cables-conduits-kit',
+    title: 'Professional Solar Cables, Conduits & Accessories',
+    category: 'Equipment',
+    image: '/assets/aistudio/Cables_conduits_accessories.jpg',
+    description: 'Solar-rated cables, metal and PVC conduits, IP68 cable glands, and terminal accessories.',
+  },
+  {
+    id: 'residential-installer',
+    title: 'Rooftop Solar Panel Installation',
+    category: 'Installation',
+    image: '/assets/aistudio/Solar_panels3.jpg',
+    description: 'Technician with safety harness securing monocrystalline solar panels on residential asphalt shingles.',
+  },
+  {
+    id: 'commercial-warehouse-sunset',
+    title: 'Commercial & Industrial Solar Rooftop Array',
+    category: 'Commercial',
+    image: '/assets/aistudio/Solar_panels1.jpg',
+    description: 'Extensive multi-kilowatt solar panel array on commercial warehouse facility at golden sunset.',
+  },
+  {
+    id: 'safety-quality-inspection',
+    title: 'Safety & Quality Standards First',
+    category: 'Installation',
+    image: '/assets/aistudio/Solar_panel2.jpg',
+    description: 'On-site safety inspection of an installed solar panel array.',
+  },
+  {
+    id: 'inverter-bench',
+    title: 'Smart Low/High Voltage Inverter Unit',
+    category: 'Equipment',
+    image: '/assets/aistudio/Inverters.jpg',
+    description: 'Smart inverter unit with LCD telemetry panel, dual MPPT inputs, and battery ports.',
+  },
 ];

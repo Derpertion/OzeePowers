@@ -36,19 +36,19 @@ export const ProcessSection: React.FC = () => {
   };
 
   return (
-    <section id="process" className="py-16 lg:py-24 bg-slate-900 text-white relative overflow-hidden">
-      {/* Background accents */}
-      <div
-        className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)',
-          backgroundSize: '24px 24px',
-        }}
-        aria-hidden="true"
-      />
+    <section id="process" className="py-16 lg:py-24 bg-slate-950 text-white relative overflow-hidden">
+      {/* Real Solar Array Photographic Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <img
+          src="/assets/aistudio/Solar_panels4.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center opacity-25 scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900/90 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-transparent to-slate-950/95" />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="text-xs font-bold uppercase tracking-widest text-emerald-400">

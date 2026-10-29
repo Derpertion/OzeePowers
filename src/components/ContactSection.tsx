@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Phone,
   Mail,
@@ -12,8 +12,8 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { COMPANY_INFO, CONTACT_PERSONS } from '../data/companyData';
-import { submitInquiry } from '../lib/api';
 import { InquiryFormData, ProjectType } from '../types';
+import { ApiError, submitInquiry } from '../lib/api';
 
 interface ContactSectionProps {
   initialProjectType?: ProjectType;
@@ -41,11 +41,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState<boolean>(false);
-  const [submissionError, setSubmissionError] = useState<string>('');
-  const [emailNotificationSent, setEmailNotificationSent] = useState<boolean>(true);
   const [referenceId, setReferenceId] = useState<string>('');
   const [copiedSummary, setCopiedSummary] = useState(false);
-  const honeypotRef = useRef<HTMLInputElement>(null);
+  const [notificationSent, setNotificationSent] = useState<boolean>(true);
+  const [honeypot, setHoneypot] = useState<string>('');
+  const [serverError, setServerError] = useState<string>('');
 
   useEffect(() => {
     if (initialProjectType) {
@@ -79,6 +79,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
+    setServerError('');
 
     if (!formData.name.trim()) {
       errors.name = 'Full name is required.';
@@ -98,9 +99,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     }
 
     if (formData.phone.trim()) {
+      const phonePattern = /^[+()\d\s.-]+$/;
       const phoneDigits = formData.phone.replace(/[^0-9]/g, '');
-      if (phoneDigits.length < 10) {
-        errors.phone = 'Please provide a valid 11-digit Philippine mobile number (e.g. 0917-XXX-XXXX).';
+      if (
+        !phonePattern.test(formData.phone.trim()) ||
+        phoneDigits.length < 10 ||
+        phoneDigits.length > 15 ||
+        formData.phone.trim().length > 32
+      ) {
+        errors.phone =
+          'Please provide a valid mobile number with 10 to 15 digits (e.g. 0917-XXX-XXXX).';
       }
     }
 
@@ -108,6 +116,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       errors.message = 'Please write a brief message or describe your energy inquiry.';
     } else if (formData.message.trim().length < 5) {
       errors.message = 'Please provide at least a few details about your inquiry.';
+    } else if (formData.message.trim().length > 2000) {
+      errors.message = 'Please keep your message under 2,000 characters.';
     }
 
     if (!formData.consentToContact) {
@@ -120,22 +130,22 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmissionError('');
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setServerError('');
 
     try {
-      const result = await submitInquiry(formData, honeypotRef.current?.value ?? '');
+      const result = await submitInquiry(formData, honeypot);
       setReferenceId(result.id);
-      setEmailNotificationSent(result.notificationSent);
+      setNotificationSent(result.notificationSent);
       setSubmissionSuccess(true);
-    } catch (error) {
-      setSubmissionError(
-        error instanceof Error
-          ? error.message
-          : 'The inquiry could not be sent. Please try again or contact us directly.'
-      );
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setServerError(err.message);
+      } else {
+        setServerError('Something went wrong while sending your inquiry. Please call us directly.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -170,7 +180,7 @@ Message: ${formData.message}`;
           <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">
             Direct Contact & Consultation
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0B2D5C] tracking-tight mt-1">
             Let's Build Your Solar Energy Solution.
           </h2>
           <p className="text-sm sm:text-base text-slate-600 mt-2">
@@ -180,13 +190,13 @@ Message: ${formData.message}`;
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Brochure Contact Details */}
+          {/* Left Column: Verified Contact Details from Brochure */}
           <div className="lg:col-span-5 space-y-6">
             {/* Direct Phone Lines Card */}
             <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-              <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy mb-4">
+              <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-[#0B2D5C] mb-4">
                 <Phone className="w-4 h-4 text-emerald-600" />
-                <span>Brochure Contact Numbers</span>
+                <span>Verified Contact Numbers</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -215,65 +225,84 @@ Message: ${formData.message}`;
               </div>
             </div>
 
-            {/* Email & Office Card */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-lg bg-emerald-50 text-emerald-600 shrink-0 mt-0.5">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Official Email
-                  </div>
-                  <a
-                    href={`mailto:${COMPANY_INFO.email}`}
-                    className="text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors"
-                  >
-                    {COMPANY_INFO.email}
-                  </a>
-                  <div className="text-xs text-slate-500">Prompt responses for quotations and RFPs</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
-                <div className="p-2.5 rounded-lg bg-blue-50 text-blue-600 shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Visit Our Office
-                  </div>
-                  <p className="text-xs font-semibold text-slate-900 mt-0.5">
-                    {COMPANY_INFO.address.line1}
-                  </p>
-                  <p className="text-xs text-slate-700">
-                    {COMPANY_INFO.address.line2}
-                  </p>
-                  <p className="text-xs font-medium text-emerald-700">
-                    {COMPANY_INFO.address.city} ({COMPANY_INFO.address.landmark})
-                  </p>
-
-                  <a
-                    href={COMPANY_INFO.address.mapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors mt-2"
-                  >
-                    <span>Open in Google Maps</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+            {/* Email & Office Card with Real Solar Inspection Header */}
+            <div className="rounded-2xl bg-white border border-slate-200 shadow-2xs overflow-hidden">
+              <div className="relative h-28 w-full overflow-hidden bg-slate-900">
+                <img
+                  src="/assets/aistudio/Solar_panel2.jpg"
+                  alt="OzeePower Field Installation & Safety Protocol"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+                    Cabanatuan Engineering Hub
+                  </span>
+                  <span className="text-[11px] font-medium bg-slate-900/80 px-2 py-0.5 rounded border border-white/20">
+                    Central Luzon Office
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
-                <div className="p-2.5 rounded-lg bg-slate-100 text-slate-600 shrink-0 mt-0.5">
-                  <Clock className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Office Hours
+              <div className="p-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 rounded-lg bg-emerald-50 text-emerald-600 shrink-0 mt-0.5">
+                    <Mail className="w-4 h-4" />
                   </div>
-                  <p className="text-xs text-slate-700 mt-0.5">{COMPANY_INFO.officeHours}</p>
+                  <div>
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      Official Email
+                    </div>
+                    <a
+                      href={`mailto:${COMPANY_INFO.email}`}
+                      className="text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors"
+                    >
+                      {COMPANY_INFO.email}
+                    </a>
+                    <div className="text-xs text-slate-500">Prompt responses for quotations and RFPs</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
+                  <div className="p-2.5 rounded-lg bg-blue-50 text-blue-600 shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      Visit Our Office
+                    </div>
+                    <p className="text-xs font-semibold text-slate-900 mt-0.5">
+                      {COMPANY_INFO.address.line1}
+                    </p>
+                    <p className="text-xs text-slate-700">
+                      {COMPANY_INFO.address.line2}
+                    </p>
+                    <p className="text-xs font-medium text-emerald-700">
+                      {COMPANY_INFO.address.city} ({COMPANY_INFO.address.landmark})
+                    </p>
+
+                    <a
+                      href={COMPANY_INFO.address.mapsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors mt-2"
+                    >
+                      <span>Open in Google Maps</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
+                  <div className="p-2.5 rounded-lg bg-slate-100 text-slate-600 shrink-0 mt-0.5">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      Office Hours
+                    </div>
+                    <p className="text-xs text-slate-700 mt-0.5">{COMPANY_INFO.officeHours}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -291,38 +320,9 @@ Message: ${formData.message}`;
 
                   <h3 className="text-2xl font-bold text-slate-900">Your Inquiry Has Been Received</h3>
                   <p className="text-sm text-slate-600 max-w-md mx-auto">
-                    Thank you, <strong className="text-slate-900">{formData.name}</strong>. Your inquiry
-                    has been recorded and an OzeePower technical coordinator will contact you using the
-                    details you provided.
+                    Thank you, <strong className="text-slate-900">{formData.name}</strong>. An OzeePower
+                    technical coordinator has logged your request and will reach out shortly.
                   </p>
-
-                  {!emailNotificationSent && (
-                    <div
-                      role="status"
-                      className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-left text-xs text-amber-900 max-w-md mx-auto flex items-start gap-2"
-                    >
-                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                      <p>
-                        Your inquiry is saved with reference{' '}
-                        <strong className="font-mono">{referenceId}</strong>, but the email copy to our
-                        team could not be delivered. To be sure we receive it, please call{' '}
-                        <a
-                          href={CONTACT_PERSONS[0].telUri}
-                          className="font-semibold underline underline-offset-2"
-                        >
-                          {CONTACT_PERSONS[0].phone}
-                        </a>{' '}
-                        or email{' '}
-                        <a
-                          href={`mailto:${COMPANY_INFO.email}`}
-                          className="font-semibold underline underline-offset-2"
-                        >
-                          {COMPANY_INFO.email}
-                        </a>
-                        .
-                      </p>
-                    </div>
-                  )}
 
                   <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 max-w-md mx-auto text-left text-xs space-y-1.5 font-mono">
                     <div className="flex justify-between">
@@ -340,6 +340,13 @@ Message: ${formData.message}`;
                       </div>
                     )}
                   </div>
+
+                  {!notificationSent && (
+                    <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-800 max-w-md mx-auto">
+                      <div className="font-semibold mb-1">Email notification not sent</div>
+                      <div>Please reach us directly via phone or email using the contacts on the left.</div>
+                    </div>
+                  )}
 
                   <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
                     <button
@@ -363,7 +370,6 @@ Message: ${formData.message}`;
                       type="button"
                       onClick={() => {
                         setSubmissionSuccess(false);
-                        setSubmissionError('');
                         setFormData((prev) => ({ ...prev, message: '' }));
                       }}
                       className="px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-slate-900"
@@ -373,26 +379,10 @@ Message: ${formData.message}`;
                   </div>
                 </div>
               ) : (
-                /* Interactive Form complying with API_ROUTES.md contract */
+                /* Interactive Form */
                 <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                  {/* Hidden spam trap: not shown, not focusable, not announced. */}
-                  <div
-                    aria-hidden="true"
-                    style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}
-                  >
-                    <label htmlFor="inquiry-company">Company</label>
-                    <input
-                      ref={honeypotRef}
-                      id="inquiry-company"
-                      name="company"
-                      type="text"
-                      tabIndex={-1}
-                      autoComplete="off"
-                    />
-                  </div>
-
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-brand-navy">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#0B2D5C]">
                       Request Free Consultation & Quotation
                     </h3>
                     <p className="text-xs text-slate-500 mt-1">
@@ -407,32 +397,13 @@ Message: ${formData.message}`;
                     </div>
                   )}
 
-                  {submissionError && (
+                  {serverError && (
                     <div
                       role="alert"
-                      className="p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-700"
+                      className="p-3 rounded-lg bg-red-50 border border-red-200 flex items-center gap-2 text-xs text-red-700"
                     >
-                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                      <div className="space-y-1">
-                        <p>{submissionError}</p>
-                        <p>
-                          You can also call{' '}
-                          <a
-                            href={CONTACT_PERSONS[0].telUri}
-                            className="font-semibold underline underline-offset-2"
-                          >
-                            {CONTACT_PERSONS[0].phone}
-                          </a>{' '}
-                          or email{' '}
-                          <a
-                            href={`mailto:${COMPANY_INFO.email}`}
-                            className="font-semibold underline underline-offset-2"
-                          >
-                            {COMPANY_INFO.email}
-                          </a>
-                          .
-                        </p>
-                      </div>
+                      <AlertCircle className="w-4 h-4 shrink-0" />
+                      <span>{serverError}</span>
                     </div>
                   )}
 
@@ -568,6 +539,7 @@ Message: ${formData.message}`;
                       id="inquiry-message"
                       rows={3}
                       required
+                      maxLength={2000}
                       placeholder="Please mention your average monthly electric bill or specific energy needs..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -580,6 +552,19 @@ Message: ${formData.message}`;
                     {formErrors.message && (
                       <p className="text-[11px] text-red-600 mt-1">{formErrors.message}</p>
                     )}
+                  </div>
+
+                  {/* Honeypot */}
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="company">Company</label>
+                    <input
+                      id="company"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
                   </div>
 
                   {/* Consent Checkbox */}
@@ -595,8 +580,7 @@ Message: ${formData.message}`;
                       />
                       <span className="text-xs text-slate-600 leading-snug">
                         I agree to be contacted by an OzeePower engineer or technical coordinator regarding
-                        this solar power quotation and site assessment inquiry. The details I submit will be
-                        used only to respond to this inquiry.
+                        this solar power quotation and site assessment inquiry.
                       </span>
                     </label>
                     {formErrors.consent && (
@@ -608,7 +592,7 @@ Message: ${formData.message}`;
                   <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-1.5 text-xs text-slate-500">
                       <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Used only to respond to your inquiry</span>
+                      <span>Your details are used only to respond to your inquiry</span>
                     </div>
 
                     <button

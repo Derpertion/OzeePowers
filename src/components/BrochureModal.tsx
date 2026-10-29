@@ -108,15 +108,15 @@ export const BrochureModal: React.FC<BrochureModalProps> = ({ isOpen, onClose })
         </div>
 
         {/* Modal Body / Viewer */}
-        <div className="relative flex-1 overflow-auto bg-slate-900/95 p-4 sm:p-8 flex items-center justify-center">
+        <div className="relative flex-1 overflow-auto bg-slate-900/95 p-4 sm:p-8">
           <div
-            className="transition-transform duration-200 origin-center max-w-full"
-            style={{ transform: `scale(${zoomLevel})` }}
+            className="mx-auto transition-[width] duration-200 ease-out"
+            style={{ width: `${zoomLevel * 100}%` }}
           >
             <img
               src={COMPANY_INFO.brochureAssetPath}
               alt="OzeePower Official Brochure detailing solar panels, inverters, hybrid systems, LiFePO4 battery, ATS, electrical protection and contacts"
-              className="max-h-[75vh] w-auto object-contain rounded-md shadow-2xl mx-auto ring-1 ring-white/10"
+              className="block w-full h-auto object-contain rounded-md shadow-2xl ring-1 ring-white/10"
               loading="eager"
             />
           </div>

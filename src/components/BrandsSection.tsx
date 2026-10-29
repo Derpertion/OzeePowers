@@ -18,7 +18,7 @@ export const BrandsSection: React.FC = () => {
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-            Certified Global Manufacturers
+            Global Equipment Manufacturers
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-1">
             We Use Reliable & Trusted Brands
@@ -27,8 +27,8 @@ export const BrandsSection: React.FC = () => {
             More Trusted Brands & Quality Solutions Available
           </p>
           <p className="text-xs sm:text-sm text-slate-300 mt-2">
-            We procure only authentic equipment directly from internationally recognized Tier-1 solar panel manufacturers,
-            inverter innovators, and global electrical switchgear giants.
+            We source equipment from established solar panel manufacturers, inverter innovators, and global
+            electrical switchgear brands.
           </p>
         </div>
 

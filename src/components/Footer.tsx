@@ -8,24 +8,29 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenBrochure }) => {
   return (
-    <footer className="bg-slate-950 text-slate-400 border-t border-slate-800 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <footer className="relative bg-slate-950 text-slate-400 border-t border-slate-800 text-xs overflow-hidden">
+      {/* Subtle Solar Panel Grid Watermark in Footer */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.05]" aria-hidden="true">
+        <img
+          src="/assets/aistudio/Solar_panels1.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/90 to-slate-950" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-slate-800">
           {/* Col 1: Brand & Motto */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-brand-navy flex items-center justify-center text-white shadow-xs">
-                <svg viewBox="0 0 36 36" className="w-5 h-5" fill="none">
-                  <circle cx="18" cy="18" r="6" fill="#F59E0B" />
-                  <path
-                    d="M17 19C17 13 24 12 24 12C24 12 25 19 19 21C18 21.3 17 20 17 19Z"
-                    fill="#22C55E"
-                  />
-                </svg>
+            <div className="flex items-center">
+              <div className="bg-white px-3 py-1.5 rounded-xl shadow-xs inline-flex items-center">
+                <img
+                  src={COMPANY_INFO.logoAssetPath}
+                  alt="OzeePower Logo"
+                  className="h-9 w-auto object-contain"
+                />
               </div>
-              <span className="text-xl font-black tracking-tight text-white">
-                Ozee<span className="text-emerald-400">Power</span>
-              </span>
             </div>
 
             <p className="text-slate-300 text-xs leading-relaxed max-w-sm">
@@ -110,6 +115,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBrochure }) => {
                 </a>
               </li>
               <li>
+                <a href="#gallery" className="hover:text-emerald-400 transition-colors">
+                  Project Gallery
+                </a>
+              </li>
+              <li>
                 <a href="#why-us" className="hover:text-emerald-400 transition-colors">
                   Why Choose Us
                 </a>
@@ -122,7 +132,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBrochure }) => {
             </ul>
           </div>
 
-          {/* Col 4: Contact Recap */}
+          {/* Col 4: Verified Contact Recap */}
           <div className="lg:col-span-4 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
               Cabanatuan City Office

@@ -9,6 +9,7 @@ import { Hero } from './components/Hero';
 import { SolutionsSection } from './components/SolutionsSection';
 import { ProcessSection } from './components/ProcessSection';
 import { SectorsSection } from './components/SectorsSection';
+import { ProjectGallery } from './components/ProjectGallery';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { BrandsSection } from './components/BrandsSection';
 import { ContactSection } from './components/ContactSection';
@@ -28,6 +29,9 @@ export default function App() {
     const contactElem = document.getElementById('contact');
     if (contactElem) {
       contactElem.scrollIntoView({ behavior: 'smooth' });
+      window.setTimeout(() => {
+        document.getElementById('inquiry-name')?.focus({ preventScroll: true });
+      }, 400);
     }
   };
 
@@ -67,7 +71,7 @@ export default function App() {
   };
 
   return (
-    <div id="top" className="min-h-screen flex flex-col bg-brand-surface text-slate-900 font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-500 selection:text-white">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand-navy focus:shadow-lg"
@@ -97,6 +101,9 @@ export default function App() {
 
         {/* Customer Sectors (Homes, Businesses, Industries + Interactive Estimator) */}
         <SectorsSection onApplyEstimate={handleApplyEstimate} />
+
+        {/* Real Equipment & Site Gallery */}
+        <ProjectGallery onInquireSetup={handleOpenConsultation} />
 
         {/* 6 Reasons Why Choose OzeePower */}
         <WhyChooseUs />

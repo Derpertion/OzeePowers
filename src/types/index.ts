@@ -10,6 +10,7 @@ export interface ProductSolution {
   features: string[];
   specs: { label: string; value: string }[];
   recommendedBrands: string[];
+  image: string;
   imageAlt: string;
 }
 
@@ -21,6 +22,7 @@ export interface ProcessStage {
   deliverables: string[];
   keyTools: string[];
   duration: string;
+  image?: string;
 }
 
 export interface CustomerSector {
@@ -31,6 +33,7 @@ export interface CustomerSector {
   bullets: string[];
   typicalCapacity: string;
   idealFor: string;
+  image: string;
 }
 
 export interface TrustedBrand {

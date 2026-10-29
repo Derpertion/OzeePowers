@@ -42,7 +42,7 @@ export const WhyChooseUs: React.FC = () => {
             Why Choose OzeePower?
           </h2>
           <p className="text-sm sm:text-base text-slate-600 mt-2">
-            A relentless commitment to engineering precision, authentic Tier-1 equipment,
+            A relentless commitment to engineering precision, quality equipment,
             and dependable after-sales warranty support across Central Luzon.
           </p>
         </div>
