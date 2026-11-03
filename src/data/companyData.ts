@@ -430,18 +430,18 @@ export const WHY_CHOOSE_US = [
 ];
 
 export const TRUSTED_BRANDS: TrustedBrand[] = [
-  { name: 'LONGI', category: 'Panels', origin: 'Global Manufacturer', tagline: 'Hi-MO Monocrystalline Modules' },
-  { name: 'JA SOLAR', category: 'Panels', origin: 'Global Manufacturer', tagline: 'High-Efficiency Deep Blue PV Technology' },
-  { name: 'CanadianSolar', category: 'Panels', origin: 'Global Manufacturer', tagline: 'Bifacial & High-Yield Solar Modules' },
-  { name: 'TrinaSolar', category: 'Panels', origin: 'Global Manufacturer', tagline: 'Vertex High-Power Generation Panels' },
-  { name: 'Growatt', category: 'Inverters', origin: 'Smart Energy', tagline: 'On-Grid, Hybrid & Commercial Inverters' },
-  { name: 'Deye', category: 'Inverters', origin: 'Hybrid Tech', tagline: 'Low & High Voltage Hybrid Inverters' },
-  { name: 'Pylontech', category: 'Batteries', origin: 'Energy Storage', tagline: 'LiFePO4 Modular Rack Batteries' },
-  { name: 'Schneider Electric', category: 'Protection & Switchgear', origin: 'Global Standard', tagline: 'Premium Breakers, ATS & Protection' },
-  { name: 'ABB', category: 'Protection & Switchgear', origin: 'Electrification', tagline: 'Industrial Switchgear & Safety Devices' },
-  { name: 'EATON', category: 'Protection & Switchgear', origin: 'Power Management', tagline: 'Heavy-Duty Circuit Protection' },
-  { name: 'Siemens', category: 'Protection & Switchgear', origin: 'German Engineering', tagline: 'Precision Electrical Protection & Relays' },
-  { name: 'TTNergy', category: 'Inverters', origin: 'Global Manufacturer', tagline: 'Choose TTNergy, Choose Green Life' },
+  { name: 'LONGI', categories: ['Panels'], origin: 'Global Manufacturer', tagline: 'To make the best solar energy to build a green world', logo: '/assets/logos/Longi_logo.png' },
+  { name: 'JA SOLAR', categories: ['Panels'], origin: 'Global Manufacturer', tagline: 'Reliable Power for the Journey Ahead', logo: '/assets/logos/JAsolar_logo.png' },
+  { name: 'CanadianSolar', categories: ['Panels'], origin: 'Global Manufacturer', tagline: 'Making a difference', logo: '/assets/logos/CanadianSolar_logo.png' },
+  { name: 'TrinaSolar', categories: ['Panels'], origin: 'Global Manufacturer', tagline: 'Solar Energy for All', logo: '/assets/logos/Trinasolar_logo.png' },
+  { name: 'Growatt', categories: ['Inverters'], origin: 'Smart Energy', tagline: 'Smart Energy for a Green Future', logo: '/assets/logos/Growatt_logo.png' },
+  { name: 'Deye', categories: ['Inverters'], origin: 'Hybrid Tech', tagline: 'Make progress every day', logo: '/assets/logos/Deye_logo.png' },
+  { name: 'Pylontech', categories: ['Batteries'], origin: 'Energy Storage', tagline: 'Liberating Your Energy Sustainably', logo: '/assets/logos/Pylontech_logo.jpg' },
+  { name: 'Schneider Electric', categories: ['Protection & Switchgear'], origin: 'Global Standard', tagline: 'Life Is On', logo: '/assets/logos/Schneider_logo.png' },
+  { name: 'ABB', categories: ['Protection & Switchgear'], origin: 'Electrification', tagline: 'Engineered to Outrun', logo: '/assets/logos/ABB_logo.png' },
+  { name: 'EATON', categories: ['Protection & Switchgear'], origin: 'Power Management', tagline: 'We make what matters work', logo: '/assets/logos/Eaton_logo.png' },
+  { name: 'Siemens', categories: ['Protection & Switchgear'], origin: 'German Engineering', tagline: 'Transform the everyday, for everyone', logo: '/assets/logos/Siemens_logo.png' },
+  { name: 'TTNergy', categories: ['Inverters', 'Batteries'], origin: 'Global Manufacturer', tagline: 'Choose TTNergy, Choose Green Life', logo: '/assets/logos/TTNergy_logo.jpg' },
 ];
 
 export interface ShowcaseImage {

@@ -9,7 +9,6 @@ import { Hero } from './components/Hero';
 import { SolutionsSection } from './components/SolutionsSection';
 import { ProcessSection } from './components/ProcessSection';
 import { SectorsSection } from './components/SectorsSection';
-import { ProjectGallery } from './components/ProjectGallery';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { BrandsSection } from './components/BrandsSection';
 import { ContactSection } from './components/ContactSection';
@@ -101,9 +100,6 @@ export default function App() {
 
         {/* Customer Sectors (Homes, Businesses, Industries + Interactive Estimator) */}
         <SectorsSection onApplyEstimate={handleApplyEstimate} />
-
-        {/* Real Equipment & Site Gallery */}
-        <ProjectGallery onInquireSetup={handleOpenConsultation} />
 
         {/* 6 Reasons Why Choose OzeePower */}
         <WhyChooseUs />

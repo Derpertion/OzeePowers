@@ -115,11 +115,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBrochure }) => {
                 </a>
               </li>
               <li>
-                <a href="#gallery" className="hover:text-emerald-400 transition-colors">
-                  Project Gallery
-                </a>
-              </li>
-              <li>
                 <a href="#why-us" className="hover:text-emerald-400 transition-colors">
                   Why Choose Us
                 </a>

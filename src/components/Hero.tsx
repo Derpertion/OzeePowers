@@ -262,12 +262,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrochure }) => {
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>OzeePower Equipment</span>
                 </span>
-                <a
-                  href="#gallery"
-                  className="text-xs text-slate-300 hover:text-white underline underline-offset-2"
-                >
-                  View All Photos →
-                </a>
               </div>
             </div>
           </div>

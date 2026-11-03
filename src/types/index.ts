@@ -36,11 +36,14 @@ export interface CustomerSector {
   image: string;
 }
 
+export type BrandCategory = 'Panels' | 'Inverters' | 'Batteries' | 'Protection & Switchgear';
+
 export interface TrustedBrand {
   name: string;
-  category: 'Panels' | 'Inverters' | 'Batteries' | 'Protection & Switchgear';
+  categories: BrandCategory[];
   origin: string;
   tagline: string;
+  logo: string;
 }
 
 export interface ContactPerson {

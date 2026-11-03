@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { TRUSTED_BRANDS } from '../data/companyData';
-import { ShieldCheck, Info } from 'lucide-react';
+import { BrandCategory } from '../types';
+import { Info } from 'lucide-react';
 
 export const BrandsSection: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<BrandCategory | 'All'>('All');
 
-  const categories = ['All', 'Panels', 'Inverters', 'Batteries', 'Protection & Switchgear'];
+  const categories: (BrandCategory | 'All')[] = ['All', 'Panels', 'Inverters', 'Batteries', 'Protection & Switchgear'];
 
   const filteredBrands = TRUSTED_BRANDS.filter((brand) => {
     if (selectedCategory === 'All') return true;
-    return brand.category === selectedCategory;
+    return brand.categories.includes(selectedCategory);
   });
 
   return (
@@ -55,16 +56,24 @@ export const BrandsSection: React.FC = () => {
           {filteredBrands.map((brand, idx) => (
             <div
               key={idx}
-              className="flex flex-col justify-center items-center p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-center hover:border-emerald-400 hover:bg-slate-800 transition-all duration-200"
+              title={brand.name}
+              className="flex flex-col overflow-hidden rounded-xl bg-slate-800/80 border border-slate-700 shadow-sm text-center hover:border-emerald-400 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
             >
-              <div className="text-base sm:text-lg font-black tracking-tight text-white mb-1">
-                {brand.name}
+              <div className="w-full h-24 flex items-center justify-center bg-white p-4">
+                <img
+                  src={brand.logo}
+                  alt={`${brand.name} logo`}
+                  loading="lazy"
+                  className="max-h-full max-w-full object-contain"
+                />
               </div>
-              <div className="text-[10px] uppercase font-bold text-emerald-400 mb-1">
-                {brand.category}
-              </div>
-              <div className="text-[11px] text-slate-400 leading-tight">
-                {brand.tagline}
+              <div className="flex flex-1 flex-col items-center justify-center px-4 py-3">
+                <div className="text-[10px] uppercase font-bold text-emerald-400 mb-1">
+                  {brand.categories.join(' · ')}
+                </div>
+                <div className="text-[11px] text-slate-400 leading-tight">
+                  {brand.tagline}
+                </div>
               </div>
             </div>
           ))}

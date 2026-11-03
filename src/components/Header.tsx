@@ -50,12 +50,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
               Sectors
             </a>
             <a
-              href="#gallery"
-              className="hover:text-emerald-700 transition-colors whitespace-nowrap shrink-0 py-1"
-            >
-              Gallery
-            </a>
-            <a
               href="#why-us"
               className="hover:text-emerald-700 transition-colors whitespace-nowrap shrink-0 py-1"
             >
@@ -135,13 +129,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBrochure, onOpenConsultati
               className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
             >
               Homes, Businesses, Industries
-            </a>
-            <a
-              href="#gallery"
-              onClick={closeMobileMenu}
-              className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
-            >
-              Equipment & Project Gallery
             </a>
             <a
               href="#why-us"
